@@ -50,6 +50,9 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Currency Converter", Version = "v1" });
 
+    var xmlFile = Path.Combine(AppContext.BaseDirectory, "CurrencyConverter.xml");
+    c.IncludeXmlComments(xmlFile);
+
     // Add Bearer Token support
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {

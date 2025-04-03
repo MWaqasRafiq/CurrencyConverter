@@ -19,6 +19,12 @@ namespace CurrencyConverter.Controllers
             _currencyProviderFactory = currencyProviderFactory;
             _logger = logger;
         }
+
+        /// <summary>
+        /// Get Latest Rates
+        /// </summary>
+        /// <param name="baseCurrency"></param>
+        /// <returns></returns>
         [HttpGet("latest")]
         [Authorize(Roles = "Admin,Guest")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Dictionary<string, decimal>))]
@@ -29,6 +35,12 @@ namespace CurrencyConverter.Controllers
             var rates = await provider.GetLatestRates(baseCurrency);
             return Ok(rates);
         }
+
+        /// <summary>
+        /// Convert currencies
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [Authorize(Roles = "Admin,Guest")]
         [HttpPost("convert")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(decimal))]
@@ -43,6 +55,17 @@ namespace CurrencyConverter.Controllers
             var result = await provider.ConvertCurrency(request);
             return Ok(new { ConvertedRate = result });
         }
+
+
+        /// <summary>
+        /// Get rates History
+        /// </summary>
+        /// <param name="baseCurrency"></param>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <param name="page"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
         [Authorize(Roles = "Admin,Guest")]
         [HttpGet("history")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Dictionary<DateTime, Dictionary<string, decimal>>))]

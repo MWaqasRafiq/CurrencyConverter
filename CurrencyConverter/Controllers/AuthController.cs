@@ -13,6 +13,12 @@ namespace CurrencyConverter.Controllers
         {
             _config = config;
         }
+
+        /// <summary>
+        /// User Login
+        /// </summary>
+        /// <param name="loginRequest"></param>
+        /// <returns></returns>
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginReq loginRequest)
         {
